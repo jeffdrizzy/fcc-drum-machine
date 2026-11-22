@@ -15,8 +15,8 @@ const display = document.getElementById('display');
 function playPad(key) {
   key = key.toUpperCase();
   if (!names[key]) return;
-  const pad = document.getElementById(key);
-  const audio = pad.querySelector('audio');
+  const audio = document.getElementById(key);
+  if (!audio) return;
   audio.currentTime = 0;
   const playPromise = audio.play();
   if (playPromise) playPromise.catch(() => {});
@@ -24,7 +24,7 @@ function playPad(key) {
 }
 
 document.querySelectorAll('.drum-pad').forEach(pad => {
-  pad.addEventListener('click', () => playPad(pad.id));
+  pad.addEventListener('click', () => playPad(pad.querySelector('audio').id));
 });
 
 document.addEventListener('keydown', (e) => {
